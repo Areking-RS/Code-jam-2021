@@ -1,14 +1,24 @@
 [tool.poetry]
-name = "blessed"
+name = "Blessed"
 version = "0.1.0"
 description = ""
-authors = ["Areking"]
+authors = ["Areking ridham225sharma@gmail.com"]
 license = "MIT"
 
 [tool.poetry.dependencies]
 python = "^3.8"
 
 [tool.poetry.dev-dependencies]
+# Base tools
+flake8 = "~3.7"
+isort = "~5.9"
+pre-commit = "~2.13.0"
+
+# Flake8 plugins, see https://github.com/python-discord/code-jam-template/tree/main#plugin-list
+flake8-annotations = "~2.0"
+flake8-bandit = "~2.1"
+flake8-docstrings = "~1.5"
+flake8-isort = "~4.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
