@@ -40,4 +40,3 @@ async def main():
         asyncio.run(_wrapper())
 
     Thread(target=_server).start()
-
