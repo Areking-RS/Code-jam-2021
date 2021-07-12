@@ -1,8 +1,8 @@
 import asyncio
 from threading import Thread
 
-from ecs.component import Component
-from ecs.world import World
+from .ecs.component import Component
+from .ecs.world import World
 from utils import entrypoint
 
 world = World()
