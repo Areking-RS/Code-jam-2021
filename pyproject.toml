@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "Blessed"
+name = "Code Jam 20201"
 version = "0.1.0"
 description = ""
 authors = ["Areking ridham225sharma@gmail.com"]
@@ -8,6 +8,7 @@ license = "MIT"
 [tool.poetry.dependencies]
 python = "^3.8"
 flake8-isort = "^4.0.0"
+blessed = "^1.18.1"
 
 [tool.poetry.dev-dependencies]
 # Base tools
