@@ -1,1 +1,1 @@
-print("hello test webhooks,discord")
+print("this is stupid")
