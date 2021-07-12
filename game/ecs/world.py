@@ -1,9 +1,10 @@
 import asyncio
-from typing import Callable, Coroutine, Type, TypeVar, Dict
+from typing import Callable, Coroutine, Type, TypeVar, Dict, Optional
 
 from game.ecs.component import Component
 
 _T = TypeVar("_T")
+ProcessorFunc = Callable[[float, 'World'], None]
 
 
 def _id_generator():
@@ -20,7 +21,7 @@ class World(object):
 
     entities: set[int]
     components: Dict[Type[_T], Dict[int, Component]]
-    processors: set[Callable[['World'], Coroutine]]
+    processors: set[ProcessorFunc]
 
     def __init__(self):
         self.id_generator = _id_generator()
@@ -64,6 +65,12 @@ class World(object):
                 self.components[c_type] = {}
             self.components[c_type][entity_id] = component.with_id(entity_id)
 
+    def get_component(self, entity_id: int, component_type: Type[_T]) -> Optional[_T]:
+        if component_type in self.components and entity_id in self.components[component_type]:
+            return self.components[component_type][entity_id]
+        else:
+            return None
+
     def get_components(self, component_type: Type[_T]) -> list[_T]:
         """
         Returns a list of all components of a matching type.
@@ -84,8 +91,7 @@ class World(object):
             except KeyError:
                 pass
 
-    # TODO: Likely going to want to make the processors normal sync funcs, at least most of them.
-    def register_processor(self, func: Callable[['World'], Coroutine]) -> None:
+    def register_processor(self, func: ProcessorFunc) -> None:
         """
         Register a processor.
 
@@ -94,7 +100,7 @@ class World(object):
         """
         self.processors.add(func)
 
-    def remove_processor(self, func: Callable[['World'], Coroutine]) -> None:
+    def remove_processor(self, func: ProcessorFunc) -> None:
         """
         Remove and unregister a processor.
 
@@ -103,10 +109,11 @@ class World(object):
         """
         self.processors.discard(func)
 
-    async def tick(self) -> None:
+    def tick(self, dt) -> None:
         """
         Asynchronously process all processors.
 
         :return: None
         """
-        await asyncio.gather(*[func(self) for func in self.processors])
+        for func in self.processors:
+            func(dt, self)
