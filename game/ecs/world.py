@@ -4,7 +4,7 @@ from typing import Callable, Coroutine, Type, TypeVar, Dict, Optional
 from game.ecs.component import Component
 
 _T = TypeVar("_T")
-ProcessorFunc = Callable[[float, 'World'], None]
+ProcessorFunc = Callable[[float, 'World', str], None]
 
 
 def _id_generator():
@@ -109,11 +109,11 @@ class World(object):
         """
         self.processors.discard(func)
 
-    def tick(self, dt) -> None:
+    def tick(self, dt, inp: str) -> None:
         """
         Asynchronously process all processors.
 
         :return: None
         """
         for func in self.processors:
-            func(dt, self)
+            func(dt, self, inp)
