@@ -20,6 +20,8 @@ class Transform(Component):
 @dataclasses.dataclass
 class Movement(Component):
     direction: Vector2 = Vector2.ZERO
+    h_scalar: int = 1
+    v_scalar: int = 1
     last_position: Optional[Vector2] = None  # Used to cover up the last position
 
 
@@ -81,34 +83,41 @@ def input_processor(dt, world: World, inp: str):
     player_inputs = world.get_components(PlayerInput)
     for component in player_inputs:
         movement = world.get_component(component.entity, Movement)
+        renderable = world.get_component(component.entity, Renderable)
+
         if movement is not None:
+            # TODO: Shouldn't apply scalars here, instead should correctly apply them in the movement processor
             if inp in component.up_keys:
-                movement.direction = Vector2.UP
+                movement.direction = Vector2.UP * movement.v_scalar
+                renderable.character = u'^'
             elif inp in component.down_keys:
-                movement.direction = Vector2.DOWN
+                movement.direction = Vector2.DOWN * movement.v_scalar
+                renderable.character = u'v'
             elif inp in component.left_keys:
-                movement.direction = Vector2.LEFT
+                movement.direction = Vector2.LEFT * movement.h_scalar
+                renderable.character = u'<'
             elif inp in component.right_keys:
-                movement.direction = Vector2.RIGHT
+                movement.direction = Vector2.RIGHT * movement.h_scalar
+                renderable.character = u'>'
 
 
 def main():
     term = Terminal()
 
-    speed = 1/15
+    speed = 1/10
     inp = None
 
     world = World()
     world.create_entity(
         Transform(),
-        Movement(direction=Vector2.RIGHT),
+        Movement(direction=Vector2.RIGHT, h_scalar=2),
         PlayerInput(),
         Renderable(w=3, h=3, character=u'^')
     )
 
     world.create_entity(
         Transform(position=Vector2(x=5)),
-        Movement(direction=Vector2.RIGHT),
+        Movement(direction=Vector2.RIGHT, h_scalar=2),
         PlayerInput(),
         Renderable(w=2, h=4, character=u'%')
     )
