@@ -1,5 +1,5 @@
-from ._component import Component
-from ._world import World
+from game.ecs.component import Component
+from game.ecs.world import World
 
 
 async def main():

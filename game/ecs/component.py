@@ -1,8 +1,13 @@
+import dataclasses
+from typing import Optional
+
+
+@dataclasses.dataclass
 class Component:
-    id: int
+    entity: Optional[int] = None
 
     def with_id(self, _id: int):
-        self.id = _id
+        self.entity = _id
         return self
 
     def __str__(self):
