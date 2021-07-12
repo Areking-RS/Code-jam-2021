@@ -1,13 +1,16 @@
 import asyncio
 from threading import Thread
 
-from ecs import World, Component
+from ecs.component import Component
+from ecs.world import World
 from utils import entrypoint
 
 world = World()
 
 
 class Position(Component):
+    """Position component for entities"""
+
     x: int
     y: int
 
@@ -16,7 +19,12 @@ class Position(Component):
         self.y = y
 
 
-async def movement_processor():
+async def movement_processor() -> None:
+    """
+    Movement processor for entities.
+
+    :return: None
+    """
     for position in world.get_components(Position):
         position.x += 1 + position.id
         position.y += 1 + position.id
@@ -27,13 +35,18 @@ async def movement_processor():
 
 
 @entrypoint
-async def main():
+async def main() -> None:
+    """
+    Main function, which serves as an entrypoint for this project.
+
+    :return: None
+    """
     world.create_entity(Position())
 
     world.register_processor(movement_processor)
 
-    def _server():
-        async def _wrapper():
+    def _server() -> None:
+        async def _wrapper() -> None:
             while True:
                 await world.tick()
 

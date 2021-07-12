@@ -1,16 +1,14 @@
 import asyncio
 from typing import Callable, Coroutine, Type, TypeVar
 
-from ._component import Component
 from ._utils import id_generator
+from .component import Component
 
 _T = TypeVar("_T")
 
 
 class World:
-    """
-    World class, whose object will hold entities, components and processors.
-    """
+    """World class, whose object will hold entities, components and processors."""
 
     entities: set[int]
     components: list[Component]
@@ -21,7 +19,7 @@ class World:
         self.components = []
         self.processors = set()
 
-    def _append_components(self, entity_id: int, *components: Component):
+    def _append_components(self, entity_id: int, *components: Component) -> None:
         self.components += [component.with_id(entity_id) for component in components]
 
     def create_entity(self, *components: Component) -> int:
@@ -39,6 +37,12 @@ class World:
         return entity_id
 
     def delete_entity(self, entity_id: int) -> None:
+        """
+        Delete an entity.
+
+        :param entity_id: Entity ID
+        :return:
+        """
         if entity_id in self.entities:
             indexes_to_pop: list[int] = []
             for i, component in enumerate(self.components):
@@ -52,6 +56,7 @@ class World:
 
     def add_components(self, entity_id: int, *components: Component) -> None:
         """
+        Add components to the designated entity.
 
         :param entity_id: ID of an entity
         :param components: Components to associate
