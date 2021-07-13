@@ -10,7 +10,7 @@ def mapgenerator(level):
         k=0
 
         m=[]
-        vb=random.randrange(1, 20)
+        vb=random.randrange(1, z+40)
 
         while k in range(0, 50+z):
             k+=1
@@ -63,10 +63,10 @@ def mapgenerator(level):
         elif t>0:
             for q in v:
                 m[q]=' '
-            t+=1
+            t-=1
 
         print(m)
         j.append(m)
     level_array=j
-    print(level_array)
-mapgenerator(7)
+    return (level_array)
+
