@@ -1,15 +1,16 @@
 import asyncio
+import time
 from threading import Thread
 
-from .ecs.component import Component
-from .ecs.world import World
+from ecs.component import Component
+from ecs.world import World
 from utils import entrypoint
 
 world = World()
 
 
 class Position(Component):
-    """Position component for entities"""
+    """Position component for entities."""
 
     x: int
     y: int
@@ -19,19 +20,31 @@ class Position(Component):
         self.y = y
 
 
+class Collider(Component):
+    """Collider component for entities."""
+
+
 async def movement_processor() -> None:
     """
     Movement processor for entities.
 
     :return: None
     """
-    for position in world.get_components(Position):
+    for entity, (position, *_) in world.get_components(Position):
         position.x += 1 + position.id
         position.y += 1 + position.id
 
-        print(f"Moved Entity-{position.id} to ({position.x}, {position.y})")
+        print(f"[{int(time.time())}] Moved Entity-{position.id} to ({position.x}, {position.y})")
 
-        await asyncio.sleep(1)
+        if entity == 1:
+            await asyncio.sleep(1.000)
+
+        await asyncio.sleep(1.000)
+
+
+async def map_processor() -> None:
+    for entity, (position, _collider) in world.get_components(Position, Collider):
+        pass
 
 
 @entrypoint
@@ -41,6 +54,7 @@ async def main() -> None:
 
     :return: None
     """
+    world.create_entity(Position())
     world.create_entity(Position())
 
     world.register_processor(movement_processor)
