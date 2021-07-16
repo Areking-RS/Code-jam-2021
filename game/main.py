@@ -133,7 +133,13 @@ def main():
     world.register_processor(input_processor)
     world.register_processor(movement_processor(term))
 
-    current_map = mapgenerator(1)
+    current_map = mapgenerator(
+        map_width=100,
+        map_height=100,
+        room_frequency=10,
+        room_size=30,
+        path_width=5
+    )
     world.register_processor(render_system(term, current_map))
 
     # Thread(target=game_loop).start()
