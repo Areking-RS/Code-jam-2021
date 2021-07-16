@@ -6,9 +6,9 @@ from typing import List, Optional, Tuple
 
 from blessed import Terminal
 
-from game.ecs.world import Component, World
-from game.mapgeneration import mapgenerator
-from game.utils import Vector2
+from world import Component, World
+from mapgeneration import mapgenerator
+from utils import Vector2
 
 echo = partial(print, end='', flush=True)
 
