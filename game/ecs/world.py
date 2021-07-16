@@ -1,10 +1,12 @@
 import asyncio
 from typing import Callable, Coroutine, Dict, Optional, Type, TypeVar
 
+from blessed import Terminal
+
 from game.ecs.component import Component
 
 _T = TypeVar("_T")
-ProcessorFunc = Callable[[float, 'World', str], None]
+ProcessorFunc = Callable[[Terminal, 'World', float, str], None]
 
 
 def _id_generator():
@@ -95,7 +97,7 @@ class World(object):
         """
         Register a processor.
 
-        :param func: Callable coroutine
+        :param func: Callable
         :return: None
         """
         self.processors.add(func)
@@ -104,16 +106,16 @@ class World(object):
         """
         Remove and unregister a processor.
 
-        :param func: Callable coroutine
+        :param func: Callable
         :return: None
         """
         self.processors.discard(func)
 
-    def tick(self, dt, inp: str) -> None:
+    def tick(self, term: Terminal, dt: float, inp: str) -> None:
         """
-        Asynchronously process all processors.
+        Tick all processors.
 
         :return: None
         """
         for func in self.processors:
-            func(dt, self, inp)
+            func(term, self, dt, inp)

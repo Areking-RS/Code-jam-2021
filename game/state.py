@@ -1,0 +1,75 @@
+from typing import Optional
+
+from blessed import Terminal
+
+from game.components import Transform, Movement, PlayerInput, Renderable, Text, TimeToLive
+from game.ecs.world import World
+from game.mapgeneration import mapgenerator
+from game.processors import input_processor, movement_processor, render_system, text_renderer, ttl_processor
+from game.utils import Vector2
+
+
+class Screen(object):
+    def __init__(self, world: Optional[World] = None):
+        if world is None:
+            world = World()
+        self.world = world
+
+    def setup(self, term: Terminal):
+        pass
+
+    def tick(self, term: Terminal, dt: float, inp: str) -> Optional['Screen']:
+        self.world.tick(term, dt, inp)
+        return None
+
+
+class Intro(Screen):
+    def __init__(self):
+        super(Intro, self).__init__()
+        self.text_entity: Optional[int] = None
+        self.ttl_component: Optional[TimeToLive] = None
+
+    def setup(self, term: Terminal):
+        text = Text(text_string='Dedicated Dugongs')
+        self.ttl_component = TimeToLive(expires_after=10)
+        self.text_entity = self.world.create_entity(text, self.ttl_component)
+        self.world.register_processor(text_renderer)
+        self.world.register_processor(ttl_processor)
+
+    def tick(self, term: Terminal, dt: float, inp: str) -> Optional['Screen']:
+        super(Intro, self).tick(term, dt, inp)
+        if self.ttl_component.expired:
+            return GameLevel()
+
+
+class GameLevel(Screen):
+    def __init__(self):
+        super(GameLevel, self).__init__()
+
+    def setup(self, term: Terminal):
+        self.world.create_entity(
+            Transform(),
+            Movement(direction=Vector2.RIGHT, h_scalar=2),
+            PlayerInput(),
+            Renderable(w=3, h=3, character=u'^')
+        )
+
+        self.world.create_entity(
+            Transform(position=Vector2(x=5)),
+            Movement(direction=Vector2.RIGHT, h_scalar=2),
+            PlayerInput(),
+            Renderable(w=2, h=4, character=u'%')
+        )
+
+        self.world.register_processor(input_processor)
+        self.world.register_processor(movement_processor)
+
+        current_map = mapgenerator(
+            map_width=100,
+            map_height=100,
+            room_frequency=10,
+            room_size=30,
+            path_width=5
+        )
+        self.world.register_processor(render_system(current_map))
+
