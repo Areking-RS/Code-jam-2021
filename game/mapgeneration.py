@@ -1,35 +1,37 @@
-def mapgenerator(level):
+def mapgenerator(map_width, map_height, room_frequency, room_size, path_width):
     import random
     t=0
     i=0
     j=[]
-    z=level*10
+    global level_array
+    z=map_width
+    level=room_size
     x=random.randrange(3,47+z)
-    while i in range(0, 50+z):
+    while i in range(0, map_height):
         i+=1
         k=0
 
         m=[]
-        vb=random.randrange(1, z+40)
+        vb=random.randrange(1, room_frequency)
 
         while k in range(0, 50+z):
             k+=1
 
-            if k==x or k==(x-1) or k==(x+1):
+            if k in range(x-(path_width/2), x+(path_width/2)):
                 m.append(' ')
             else:
                 m.append('#')
         if x<7:
             d=x
-            r=x+(random.randrange(0, 2))
+            r=x+(random.randrange(0, (path_width/2)-1))
             x=r
         elif x>43:
             d=x
-            r=x+(random.randrange(-2, 0))
+            r=x+(random.randrange(-((path_width/2)-1), 0))
             x=r
         else:
             d=x
-            r=x+(random.randrange(-2, 2))
+            r=x+(random.randrange(-((path_width/2)-1), (path_width/2)-1))
             x=r
         vb=random.randrange(1, 10)
         if x<level+2 and vb==3:
@@ -68,5 +70,5 @@ def mapgenerator(level):
         print(m)
         j.append(m)
     level_array=j
-    return (level_array)
+
 
