@@ -7,6 +7,7 @@ def mapgenerator(map_width, map_height, room_frequency, room_size, path_width):
     z = map_width
     level = room_size
     x = random.randrange(3, 47 + z)
+    original_spawn=x
     while i in range(0, map_height):
         i += 1
         k = 0
@@ -68,4 +69,5 @@ def mapgenerator(map_width, map_height, room_frequency, room_size, path_width):
             t -= 1
 
         j.append(m)
-    return j
+    map_gen=[j, original_spawn]
+    return map_gen

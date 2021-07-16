@@ -7,14 +7,23 @@ from game.components import Transform, Movement, Renderable, PlayerInput, Text, 
 from game.ecs.world import World
 from game.utils import echo, Vector2
 
+def movement_processor(current_map):
 
-def movement_processor(term: Terminal, world: World, dt: float, inp: str):
-    position_components = world.get_components(Transform)
-    for transform in position_components:
-        movement = world.get_component(transform.entity, Movement)
-        if movement is not None:
-            movement.last_position = transform.position
-            transform.position = transform.position + movement.direction
+    def movement(term: Terminal, world: World, dt: float, inp: str):
+
+        position_components = world.get_components(Transform)
+        for transform in position_components:
+            movement = world.get_component(transform.entity, Movement)
+            if movement is not None:
+                movement.last_position = transform.position
+                next_pos=transform.position+movement.direction
+
+                if (current_map[next_pos.y])[next_pos.x]=='#':
+                    movement.last_position = transform.position
+
+                else:
+                    transform.position = transform.position + movement.direction
+    return movement
 
 
 def render_system(level_map: List[List[str]]):
@@ -71,6 +80,8 @@ def input_processor(term: Terminal, world: World, dt: float, inp: str):
             elif inp in component.right_keys:
                 movement.direction = Vector2.RIGHT * movement.h_scalar
                 renderable.character = u'>'
+            else:
+                movement.direction = Vector2.ZERO
 
 
 def text_renderer(term: Terminal, world: World, dt: float, inp: str):

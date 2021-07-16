@@ -14,8 +14,10 @@ def main():
     speed = 1/10
     inp = None
 
+
     level = Intro()
     level.setup(term)
+
 
     # Thread(target=game_loop).start()
     with term.hidden_cursor(), term.cbreak(), term.location():

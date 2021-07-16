@@ -47,29 +47,25 @@ class GameLevel(Screen):
         super(GameLevel, self).__init__()
 
     def setup(self, term: Terminal):
-        self.world.create_entity(
-            Transform(),
-            Movement(direction=Vector2.RIGHT, h_scalar=2),
-            PlayerInput(),
-            Renderable(w=3, h=3, character=u'^')
-        )
-
-        self.world.create_entity(
-            Transform(position=Vector2(x=5)),
-            Movement(direction=Vector2.RIGHT, h_scalar=2),
-            PlayerInput(),
-            Renderable(w=2, h=4, character=u'%')
-        )
-
         self.world.register_processor(input_processor)
-        self.world.register_processor(movement_processor)
+
 
         current_map = mapgenerator(
-            map_width=100,
-            map_height=100,
+            map_width=50,
+            map_height=50,
             room_frequency=10,
             room_size=30,
             path_width=5
         )
-        self.world.register_processor(render_system(current_map))
+        spawn = current_map[1]
+        current_map = current_map[0]
 
+        self.world.create_entity(
+            Transform(position=Vector2(x=spawn)),
+            Movement(direction=Vector2.RIGHT),
+            PlayerInput(),
+            Renderable(w=1, h=1, character=u'^')
+        )
+
+        self.world.register_processor(movement_processor(current_map))
+        self.world.register_processor(render_system(current_map))
