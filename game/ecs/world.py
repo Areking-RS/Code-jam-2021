@@ -1,5 +1,5 @@
 import asyncio
-from typing import Callable, Coroutine, Type, TypeVar, Dict, Optional
+from typing import Callable, Coroutine, Dict, Optional, Type, TypeVar
 
 from game.ecs.component import Component
 
