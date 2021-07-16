@@ -2,11 +2,12 @@ import dataclasses
 import time
 from functools import partial
 from threading import Thread
-from typing import List, Tuple, Optional
+from typing import List, Optional, Tuple
 
 from blessed import Terminal
 
-from game.ecs.world import World, Component
+from game.ecs.world import Component, World
+from game.mapgeneration import mapgenerator
 from game.utils import Vector2
 
 echo = partial(print, end='', flush=True)
@@ -51,13 +52,20 @@ def movement_processor(term: Terminal):
     return _movement
 
 
-def render_processor(term: Terminal):
+def render_system(term: Terminal, level_map: List[List[str]]):
     color_bg = term.on_blue
-    echo(term.move_yx(1, 1))
-    echo(color_bg(term.clear))
     color_worm = term.yellow_reverse
 
     def _renderer(dt, world: World, inp: str):
+        # Blank the screen
+        echo(term.move_yx(1, 1))
+        echo(color_bg(term.clear))
+
+        # Draw the current map
+        for row in level_map:
+            print(term.orangered_on_blue(''.join(row)))
+
+        # Draw the Renderable components
         renderable_components = world.get_components(Renderable)
         for component in renderable_components:
             transform = world.get_component(component.entity, Transform)
@@ -124,7 +132,9 @@ def main():
 
     world.register_processor(input_processor)
     world.register_processor(movement_processor(term))
-    world.register_processor(render_processor(term))
+
+    current_map = mapgenerator(1)
+    world.register_processor(render_system(term, current_map))
 
     # Thread(target=game_loop).start()
     with term.hidden_cursor(), term.cbreak(), term.location():
