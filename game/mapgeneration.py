@@ -1,9 +1,9 @@
+
 def mapgenerator(map_width, map_height, room_frequency, room_size, path_width):
     import random
     t = 0
     i = 0
     j = []
-    global level_array
     z = map_width
     level = room_size
     x = random.randrange(3, 47 + z)
