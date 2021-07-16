@@ -41,22 +41,19 @@ class Renderable(Component):
     character: str = u'*'
 
 
-def movement_processor(term: Terminal):
-    def _movement(dt, world: World, inp: str):
-        position_components = world.get_components(Transform)
-        for transform in position_components:
-            movement = world.get_component(transform.entity, Movement)
-            if movement is not None:
-                movement.last_position = transform.position
-                transform.position = transform.position + movement.direction
-    return _movement
+def movement_processor(term: Terminal, world: World, dt: float, inp: str):
+    position_components = world.get_components(Transform)
+    for transform in position_components:
+        movement = world.get_component(transform.entity, Movement)
+        if movement is not None:
+            movement.last_position = transform.position
+            transform.position = transform.position + movement.direction
 
 
-def render_system(term: Terminal, level_map: List[List[str]]):
-    color_bg = term.on_blue
-    color_worm = term.yellow_reverse
-
-    def _renderer(dt, world: World, inp: str):
+def render_system(level_map: List[List[str]]):
+    def _renderer(term: Terminal, world: World, dt: float, inp: str):
+        color_bg = term.on_blue
+        color_worm = term.yellow_reverse
         # Blank the screen
         echo(term.move_yx(1, 1))
         echo(color_bg(term.clear))
@@ -87,7 +84,7 @@ def render_system(term: Terminal, level_map: List[List[str]]):
     return _renderer
 
 
-def input_processor(dt, world: World, inp: str):
+def input_processor(term: Terminal, world: World, dt: float, inp: str):
     player_inputs = world.get_components(PlayerInput)
     for component in player_inputs:
         movement = world.get_component(component.entity, Movement)
@@ -131,7 +128,7 @@ def main():
     )
 
     world.register_processor(input_processor)
-    world.register_processor(movement_processor(term))
+    world.register_processor(movement_processor)
 
     current_map = mapgenerator(
         map_width=100,
@@ -140,12 +137,12 @@ def main():
         room_size=30,
         path_width=5
     )
-    world.register_processor(render_system(term, current_map))
+    world.register_processor(render_system(current_map))
 
     # Thread(target=game_loop).start()
     with term.hidden_cursor(), term.cbreak(), term.location():
         while inp not in (u'q', u'Q'):
-            world.tick(0.0, inp)
+            world.tick(term, 0.0, inp)
             inp = term.inkey(timeout=speed)
 
 
