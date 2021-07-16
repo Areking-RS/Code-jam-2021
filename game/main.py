@@ -2,11 +2,11 @@ import dataclasses
 import time
 from functools import partial
 from threading import Thread
-from typing import List, Tuple, Optional
+from typing import List, Optional, Tuple
 
 from blessed import Terminal
 
-from game.ecs.world import World, Component
+from game.ecs.world import Component, World
 from game.mapgeneration import mapgenerator
 from game.utils import Vector2
 

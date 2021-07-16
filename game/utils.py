@@ -1,6 +1,6 @@
 import dataclasses
 import math
-from typing import Tuple, ClassVar
+from typing import ClassVar, Tuple
 
 
 @dataclasses.dataclass
