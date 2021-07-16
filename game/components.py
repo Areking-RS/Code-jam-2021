@@ -49,3 +49,8 @@ class TimeToLive(Component):
     @property
     def expired(self):
         return self.current_time - self.start_time >= self.expires_after
+
+@dataclasses.dataclass
+class FollowAI(Component):
+    follow_transform: Optional[Transform]= None
+    ticks_since_move: int = 0

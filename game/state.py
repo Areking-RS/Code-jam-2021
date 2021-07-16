@@ -2,10 +2,11 @@ from typing import Optional
 
 from blessed import Terminal
 
-from game.components import Transform, Movement, PlayerInput, Renderable, Text, TimeToLive
+from game.components import Transform, Movement, PlayerInput, Renderable, Text, TimeToLive, FollowAI
+from game.ecs import world
 from game.ecs.world import World
 from game.mapgeneration import mapgenerator
-from game.processors import input_processor, movement_processor, render_system, text_renderer, ttl_processor
+from game.processors import input_processor, movement_processor, render_system, text_renderer, ttl_processor, enemy_movement
 from game.utils import Vector2
 
 
@@ -31,7 +32,7 @@ class Intro(Screen):
 
     def setup(self, term: Terminal):
         text = Text(text_string='Dedicated Dugongs')
-        self.ttl_component = TimeToLive(expires_after=10)
+        self.ttl_component = TimeToLive(expires_after=1)
         self.text_entity = self.world.create_entity(text, self.ttl_component)
         self.world.register_processor(text_renderer)
         self.world.register_processor(ttl_processor)
@@ -51,21 +52,29 @@ class GameLevel(Screen):
 
 
         current_map = mapgenerator(
-            map_width=50,
+            map_width=150,
             map_height=50,
             room_frequency=10,
-            room_size=30,
-            path_width=5
+            room_size=10,
+            path_width=20
         )
         spawn = current_map[1]
         current_map = current_map[0]
 
-        self.world.create_entity(
+        player=self.world.create_entity(
             Transform(position=Vector2(x=spawn)),
             Movement(direction=Vector2.RIGHT),
             PlayerInput(),
             Renderable(w=1, h=1, character=u'^')
         )
-
+        transform = self.world.get_component(player, Transform)
+        print(transform)
+        self.world.create_entity(
+            Transform(position=Vector2(x=spawn+2)),
+            Movement(direction=Vector2.RIGHT),
+            FollowAI(follow_transform=transform),
+            Renderable(w=1, h=1, character=u'O')
+        )
+        self.world.register_processor(enemy_movement(current_map))
         self.world.register_processor(movement_processor(current_map))
         self.world.register_processor(render_system(current_map))
