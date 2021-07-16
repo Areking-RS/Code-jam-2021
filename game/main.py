@@ -6,11 +6,22 @@ from typing import List, Optional, Tuple
 
 from blessed import Terminal
 
-from world import Component, World
-from mapgeneration import mapgenerator
-from utils import Vector2
+from game.ecs.world import Component, World
+from game.mapgeneration import mapgenerator
+from game.utils import Vector2
 
 echo = partial(print, end='', flush=True)
+current_map = mapgenerator(
+    map_width=50,
+    map_height=50,
+    room_frequency=3,
+    room_size=30,
+    path_width=5
+    )
+spawn=current_map[1]
+current_map=current_map[0]
+
+
 
 
 @dataclasses.dataclass
@@ -48,13 +59,21 @@ def movement_processor(term: Terminal):
             movement = world.get_component(transform.entity, Movement)
             if movement is not None:
                 movement.last_position = transform.position
-                transform.position = transform.position + movement.direction
+                next_pos=transform.position+movement.direction
+
+                if (current_map[next_pos.y])[next_pos.x]=='#':
+                    movement.last_position = transform.position
+                    #print(transform.position)
+                else:
+                    transform.position = transform.position + movement.direction
+                    #print(transform.position)
+
     return _movement
 
 
 def render_system(term: Terminal, level_map: List[List[str]]):
-    color_bg = term.on_blue
-    color_worm = term.yellow_reverse
+    color_bg = term.on_white
+    color_worm = term.green_reverse
 
     def _renderer(dt, world: World, inp: str):
         # Blank the screen
@@ -63,7 +82,7 @@ def render_system(term: Terminal, level_map: List[List[str]]):
 
         # Draw the current map
         for row in level_map:
-            print(term.orangered_on_blue(''.join(row)))
+            print(term.black_on_white(''.join(row)))
 
         # Draw the Renderable components
         renderable_components = world.get_components(Renderable)
@@ -107,7 +126,8 @@ def input_processor(dt, world: World, inp: str):
             elif inp in component.right_keys:
                 movement.direction = Vector2.RIGHT * movement.h_scalar
                 renderable.character = u'>'
-
+            else:
+                movement.direction=Vector2.ZERO
 
 def main():
     term = Terminal()
@@ -117,29 +137,18 @@ def main():
 
     world = World()
     world.create_entity(
-        Transform(),
-        Movement(direction=Vector2.RIGHT, h_scalar=2),
+        Transform(position=Vector2(x=spawn )),
+        Movement(direction=Vector2.DOWN),
         PlayerInput(),
-        Renderable(w=3, h=3, character=u'^')
+        Renderable(w=1, h=1, character=u'^')
     )
 
-    world.create_entity(
-        Transform(position=Vector2(x=5)),
-        Movement(direction=Vector2.RIGHT, h_scalar=2),
-        PlayerInput(),
-        Renderable(w=2, h=4, character=u'%')
-    )
+
 
     world.register_processor(input_processor)
     world.register_processor(movement_processor(term))
 
-    current_map = mapgenerator(
-        map_width=100,
-        map_height=100,
-        room_frequency=10,
-        room_size=30,
-        path_width=5
-    )
+
     world.register_processor(render_system(term, current_map))
 
     # Thread(target=game_loop).start()

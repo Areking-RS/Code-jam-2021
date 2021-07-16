@@ -1,7 +1,7 @@
 import asyncio
 from typing import Callable, Coroutine, Dict, Optional, Type, TypeVar
 
-from component import Component
+from game.ecs.component import Component
 
 _T = TypeVar("_T")
 ProcessorFunc = Callable[[float, 'World', str], None]
