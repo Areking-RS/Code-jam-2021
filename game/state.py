@@ -2,10 +2,15 @@ from typing import Optional
 
 from blessed import Terminal
 
-from game.components import Transform, Movement, PlayerInput, Renderable, Text, TimeToLive
+from game.components import (
+    Movement, PlayerInput, Renderable, Text, TimeToLive, Transform
+)
 from game.ecs.world import World
 from game.mapgeneration import mapgenerator
-from game.processors import input_processor, movement_processor, render_system, text_renderer, ttl_processor
+from game.processors import (
+    input_processor, movement_processor, render_system, text_renderer,
+    ttl_processor
+)
 from game.utils import Vector2
 
 
@@ -31,7 +36,7 @@ class Intro(Screen):
 
     def setup(self, term: Terminal):
         text = Text(text_string='Dedicated Dugongs')
-        self.ttl_component = TimeToLive(expires_after=10)
+        self.ttl_component = TimeToLive(expires_after=1)
         self.text_entity = self.world.create_entity(text, self.ttl_component)
         self.world.register_processor(text_renderer)
         self.world.register_processor(ttl_processor)
@@ -48,7 +53,6 @@ class GameLevel(Screen):
 
     def setup(self, term: Terminal):
         self.world.register_processor(input_processor)
-
 
         current_map = mapgenerator(
             map_width=50,

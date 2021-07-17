@@ -1,4 +1,4 @@
-from typing import Dict, Generator, List, Optional, Sequence, Type, TypeVar
+from typing import Dict, Generator, List, Optional, Type, TypeVar
 
 from blessed import Terminal
 
