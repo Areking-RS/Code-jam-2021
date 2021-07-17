@@ -46,32 +46,32 @@ def mapgenerator(map_width: int, map_height: int, room_frequency: int, room_size
         else:
             r = x + (random.randrange(-((path_width // 2) - 1), (path_width // 2) - 1))
             x = r
-        vb = random.randrange(1, 10)
-        if x < level + 2 and vb == 3:
+        vb = random.randrange(1, room_frequency)
+        if x < level + 2 and vb == random.randrange(1, room_frequency):
             t = 0
             v = []
-            while t < (level + 3):
+            while t < (level):
                 t += 1
                 m[x + t] = ' '
                 v.append(x + t)
-        elif x > z + 48 - level and vb == 3:
+        elif x > z + 48 - level and vb == random.randrange(1, room_frequency):
             t = 0
             v = []
-            while t < (level + 3):
+            while t < (level):
                 t += 1
                 m[x - t] = ' '
                 v.append(x - t)
-        elif z + 48 - level > x > level + 2 and vb == 3:
+        elif z + 48 - level > x > level + 2 and vb == random.randrange(1, room_frequency):
             t = 0
             v = []
             e = random.randint(0, 1)
             if e == 1:
-                while t < (level + 3):
+                while t < (level):
                     t += 1
                     m[x - t] = ' '
                     v.append(x - t)
             else:
-                while t < (level + 3):
+                while t < (level):
                     t += 1
                     m[x + t] = ' '
                     v.append(x + t)
