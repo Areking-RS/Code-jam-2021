@@ -5,7 +5,8 @@ from blessed import Terminal
 from game.components import (
     Movement, PlayerInput, Renderable, Text, TimeToLive, Transform
 )
-from game.ecs.world import ProcessorFunc, World
+from game.ecs import ProcessorFunc
+from game.ecs.world import World
 from game.mapgeneration import MapType
 from game.utils import Vector2, echo
 

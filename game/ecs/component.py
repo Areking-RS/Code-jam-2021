@@ -1,11 +1,21 @@
 import dataclasses
 from typing import Optional
 
+from game.ecs import EntityId
+
 
 @dataclasses.dataclass
 class Component:
-    entity: Optional[int] = None
+    """Base class for all components"""
 
-    def with_id(self, _id: int):
+    entity: Optional[EntityId] = None
+
+    def with_id(self, _id: EntityId) -> 'Component':
+        """
+        Associate an entity with this component
+
+        :param _id: ID of the entity this component is associated with
+        :return: Same component
+        """
         self.entity = _id
         return self
