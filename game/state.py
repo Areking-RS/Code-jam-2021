@@ -3,14 +3,15 @@ from typing import Generator, Optional, Union
 from blessed import Terminal
 
 from game.components import (
-    Ascii, Movement, PlayerInput, Renderable, Text, TimeToLive, Transform, FollowAI
+    Ascii, FollowAI, Movement, PlayerInput, Renderable, Text, TimeToLive,
+    Transform
 )
 from game.cutscenes import CutsceneFrame, CutsceneSequence, ordered_cutscenes
 from game.ecs.world import World
 from game.mapgeneration import MapType, mapgenerator
 from game.processors import (
-    ascii_renderer, input_processor, movement_processor, render_system,
-    text_renderer, ttl_processor, enemy_movement
+    ascii_renderer, enemy_movement, input_processor, movement_processor,
+    render_system, text_renderer, ttl_processor
 )
 from game.utils import Vector2, echo
 

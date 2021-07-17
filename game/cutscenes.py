@@ -264,7 +264,11 @@ level_6 = [
 ]
 
 level_7 = [
-    (shooting_tv_show, 5, "Here's your stop. Now that you've reached the source, you should be able to just hop out of the camera"),
+    (
+        shooting_tv_show,
+        5,
+        "Here's your stop. Now that you've reached the source, you should be able to just hop out of the camera"
+    ),
     (goodbye, 5, "See you guide. It's been nice meeting you")
 ]
 

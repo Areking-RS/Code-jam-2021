@@ -3,7 +3,8 @@ import time
 from blessed import Terminal
 
 from game.components import (
-    Ascii, Movement, PlayerInput, Renderable, Text, TimeToLive, Transform, FollowAI
+    Ascii, FollowAI, Movement, PlayerInput, Renderable, Text, TimeToLive,
+    Transform
 )
 from game.ecs import ProcessorFunc
 from game.ecs.world import World
@@ -91,8 +92,10 @@ def input_processor(term: Terminal, world: World, dt: float, inp: str) -> None:
                 movement.direction = Vector2.ZERO
 
 
-def enemy_movement(current_map):
-    def enemy_movement_processor(term: Terminal, world: World, dt: float, inp: str, self=None):
+def enemy_movement(current_map: MapType) -> ProcessorFunc:
+    """Returns a processor that calculates movement paths for enemies on the given map"""
+
+    def enemy_movement_processor(term: Terminal, world: World, dt: float, inp: str) -> None:
         AIs = world.get_components(FollowAI)
         for component in AIs:
             movement = world.get_component(component.entity, Movement)

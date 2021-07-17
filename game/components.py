@@ -88,5 +88,7 @@ class TimeToLive(Component):
 
 @dataclasses.dataclass
 class FollowAI(Component):
-    follow_transform: Optional[Transform]= None
+    """Component that tracks another transform"""
+
+    follow_transform: Optional[Transform] = None
     ticks_since_move: int = 0
