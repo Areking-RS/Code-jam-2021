@@ -1,11 +1,6 @@
 from blessed import Terminal
 
-from game.components import Movement, PlayerInput, Renderable, Transform
-from game.ecs.world import World
-from game.mapgeneration import mapgenerator
-from game.processors import input_processor, movement_processor, render_system
 from game.state import Intro
-from game.utils import Vector2
 
 
 def main():
