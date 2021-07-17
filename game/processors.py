@@ -3,7 +3,7 @@ import time
 from blessed import Terminal
 
 from game.components import (
-    Movement, PlayerInput, Renderable, Text, TimeToLive, Transform
+    Ascii, Movement, PlayerInput, Renderable, Text, TimeToLive, Transform
 )
 from game.ecs import ProcessorFunc
 from game.ecs.world import World
@@ -93,17 +93,55 @@ def input_processor(term: Terminal, world: World, dt: float, inp: str) -> None:
 
 def text_renderer(term: Terminal, world: World, dt: float, inp: str) -> None:
     """Renders text components"""
-    color_bg = term.on_blue
-    # Blank the screen
-    echo(term.move_yx(1, 1))
-    echo(color_bg(term.clear))
+    # color_bg = term.on_blue
+    # # Blank the screen
+    # echo(term.move_yx(1, 1))
+    # echo(color_bg(term.clear))
 
     text_components = world.get_components(Text)
     for idx, text in enumerate(text_components):
-        with term.location(0, term.height // 2 + idx):
-            text_color = f'{text.fg_color}_{text.bg_color}'
-            text_func = term.__getattr__(text_color)
-            echo(term.center(text_func(text.text_string)))
+        text_color = f'{text.fg_color}_{text.bg_color}'
+        text_func = term.__getattr__(text_color)
+
+        if text.h_align == Text.HorizontalAlign.LEFT:
+            h_align = term.ljust
+        elif text.h_align == Text.HorizontalAlign.CENTER:
+            h_align = term.center
+        elif text.h_align == Text.HorizontalAlign.RIGHT:
+            h_align = term.rjust
+        else:
+            h_align = term.ljust
+
+        if text.v_align == Text.VerticalAlign.TOP:
+            y_offset = 0
+        elif text.v_align == Text.VerticalAlign.CENTER:
+            y_offset = term.height // 2
+        elif text.v_align == Text.VerticalAlign.BOTTOM:
+            y_offset = term.height - 1
+        else:
+            y_offset = 0
+
+        with term.location(0, y_offset):
+            echo(h_align(text_func(text.text_string)))
+
+
+def ascii_renderer(term: Terminal, world: World, dt: float, inp: str) -> None:
+    """Renders text components"""
+    # color_bg = term.on_blue
+    # # Blank the screen
+    # echo(term.move_yx(1, 1))
+    # echo(color_bg(term.clear))
+
+    ascii_components = world.get_components(Ascii)
+    center_height = term.height // 2
+    for ascii in ascii_components:
+        half_art_len = len(ascii.art) // 2
+        base_offset = center_height - half_art_len
+        for idx, line in enumerate(ascii.art):
+            with term.location(0, base_offset + idx):
+                text_color = f'{ascii.fg_color}_{ascii.bg_color}'
+                text_func = term.__getattr__(text_color)
+                echo(term.center(text_func(line)))
 
 
 def ttl_processor(term: Terminal, world: World, dt: float, inp: str) -> None:

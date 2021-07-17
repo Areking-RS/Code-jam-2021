@@ -1,5 +1,6 @@
 import dataclasses
-from typing import Optional, Tuple
+import enum
+from typing import List, Optional, Tuple
 
 from game.ecs.component import Component
 from game.utils import Vector2
@@ -45,7 +46,28 @@ class Renderable(Component):
 class Text(Component):
     """Component that stores text for rendering"""
 
+    class VerticalAlign(enum.IntEnum):
+        TOP = 0
+        CENTER = 1
+        BOTTOM = 2
+
+    class HorizontalAlign(enum.IntEnum):
+        LEFT = 0
+        CENTER = 1
+        RIGHT = 2
+
     text_string: str = str()
+    fg_color: str = 'green'
+    bg_color: str = 'on_black'
+    v_align: VerticalAlign = VerticalAlign.BOTTOM
+    h_align: HorizontalAlign = HorizontalAlign.CENTER
+
+
+@dataclasses.dataclass
+class Ascii(Component):
+    """Component that stores ascii text for rendering"""
+
+    art: Optional[List[str]] = None
     fg_color: str = 'green'
     bg_color: str = 'on_black'
 
