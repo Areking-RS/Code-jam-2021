@@ -1,28 +1,25 @@
-import asyncio
-from typing import Callable, Coroutine, Dict, Optional, Type, TypeVar
+from typing import Dict, Generator, List, Optional, Type, TypeVar
 
 from blessed import Terminal
 
+from game.ecs import EntityId, ProcessorFunc
 from game.ecs.component import Component
 
 _T = TypeVar("_T")
-ProcessorFunc = Callable[[Terminal, 'World', float, str], None]
 
 
-def _id_generator():
+def _id_generator() -> Generator[EntityId, None, None]:
     n = 0
     while True:
-        yield n
+        yield EntityId(n)
         n = n + 1
 
 
 class World(object):
-    """
-    World class, whose object will hold entities, components and processors.
-    """
+    """World class, whose object will hold entities, components and processors."""
 
-    entities: set[int]
-    components: Dict[Type[_T], Dict[int, Component]]
+    entities: set[EntityId]
+    components: Dict[Type[_T], Dict[EntityId, Component]]
     processors: set[ProcessorFunc]
 
     def __init__(self):
@@ -31,11 +28,11 @@ class World(object):
         self.components = {}
         self.processors = set()
 
-    def create_entity(self, *components: Component) -> int:
+    def create_entity(self, *components: Component) -> EntityId:
         """
         Create a new entity and assign it an ID.
 
-        :param components: Entity components
+        :param components: List of components to add to new entity
         :return: Entity ID
         """
         entity_id = next(self.id_generator)
@@ -45,7 +42,13 @@ class World(object):
 
         return entity_id
 
-    def delete_entity(self, entity_id: int) -> None:
+    def delete_entity(self, entity_id: EntityId) -> None:
+        """
+        Delete an entity and all associated components from the world.
+
+        :param entity_id:
+        :return:
+        """
         if entity_id in self.entities:
             # TODO: Could speed this up at the cost of memory by keeping a dict of entity_id -> Set[Type[Component]]
             #       and using that to shortcut looking through each component bucket.
@@ -54,8 +57,9 @@ class World(object):
                     del component_map[entity_id]
             self.entities.discard(entity_id)
 
-    def add_components(self, entity_id: int, *components: Component) -> None:
+    def add_components(self, entity_id: EntityId, *components: Component) -> None:
         """
+        Add components to an entity.
 
         :param entity_id: ID of an entity
         :param components: Components to associate
@@ -67,7 +71,14 @@ class World(object):
                 self.components[c_type] = {}
             self.components[c_type][entity_id] = component.with_id(entity_id)
 
-    def get_component(self, entity_id: int, component_type: Type[_T]) -> Optional[_T]:
+    def get_component(self, entity_id: EntityId, component_type: Type[_T]) -> Optional[_T]:
+        """
+        Get a component from a specific entity.
+
+        :param entity_id: ID of an entity
+        :param component_type: Type of the component to retrieve
+        :return:
+        """
         if component_type in self.components and entity_id in self.components[component_type]:
             return self.components[component_type][entity_id]
         else:
@@ -85,7 +96,14 @@ class World(object):
         else:
             return []
 
-    def remove_components(self, entity, *components):
+    def remove_components(self, entity: EntityId, *components: List[Component]) -> None:
+        """
+        Remove specified components from an entity
+
+        :param entity: ID of an entity
+        :param components: Components to remove from the entity
+        :return: None
+        """
         for component in components:
             c_type = type(component)
             try:

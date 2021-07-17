@@ -1,13 +1,28 @@
+import random
+from typing import List, Tuple
 
-def mapgenerator(map_width, map_height, room_frequency, room_size, path_width):
-    import random
+MapType = List[List[str]]
+
+
+def mapgenerator(map_width: int, map_height: int, room_frequency: int, room_size: int, path_width: int) -> \
+        Tuple[MapType, int]:
+    """
+    Generate a map
+
+    :param map_width: Width of the map
+    :param map_height: Height of the map
+    :param room_frequency: Frequency of rooms generated in the map
+    :param room_size: Size of rooms in the map
+    :param path_width: Average width of path
+    :return: A tuple containing the map and a x-coordinate spawn location for the player
+    """
     t = 0
     i = 0
     j = []
     z = map_width
     level = room_size
     x = random.randrange(3, 47 + z)
-    original_spawn=x
+    original_spawn = x
     while i in range(0, map_height):
         i += 1
         k = 0
@@ -23,15 +38,12 @@ def mapgenerator(map_width, map_height, room_frequency, room_size, path_width):
             else:
                 m.append('#')
         if x < 7:
-            d = x
             r = x + (random.randrange(0, (path_width // 2) - 1))
             x = r
         elif x > 43:
-            d = x
             r = x + (random.randrange(-((path_width // 2) - 1), 0))
             x = r
         else:
-            d = x
             r = x + (random.randrange(-((path_width // 2) - 1), (path_width // 2) - 1))
             x = r
         vb = random.randrange(1, 10)
@@ -69,5 +81,4 @@ def mapgenerator(map_width, map_height, room_frequency, room_size, path_width):
             t -= 1
 
         j.append(m)
-    map_gen=[j, original_spawn]
-    return map_gen
+    return j, original_spawn

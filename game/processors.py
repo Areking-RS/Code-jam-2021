@@ -1,33 +1,39 @@
 import time
-from typing import List
 
 from blessed import Terminal
 
-from game.components import Transform, Movement, Renderable, PlayerInput, Text, TimeToLive
+from game.components import (
+    Movement, PlayerInput, Renderable, Text, TimeToLive, Transform
+)
+from game.ecs import ProcessorFunc
 from game.ecs.world import World
-from game.utils import echo, Vector2
+from game.mapgeneration import MapType
+from game.utils import Vector2, echo
 
-def movement_processor(current_map):
 
-    def movement(term: Terminal, world: World, dt: float, inp: str):
+def movement_processor(current_map: MapType) -> ProcessorFunc:
+    """Returns a processor that handles movement for the given map"""
 
+    def movement(term: Terminal, world: World, dt: float, inp: str) -> None:
         position_components = world.get_components(Transform)
         for transform in position_components:
             movement = world.get_component(transform.entity, Movement)
             if movement is not None:
                 movement.last_position = transform.position
-                next_pos=transform.position+movement.direction
+                next_pos = transform.position + movement.direction
 
-                if (current_map[next_pos.y])[next_pos.x]=='#':
+                if (current_map[next_pos.y])[next_pos.x] == '#':
                     movement.last_position = transform.position
-
                 else:
                     transform.position = transform.position + movement.direction
+
     return movement
 
 
-def render_system(level_map: List[List[str]]):
-    def _renderer(term: Terminal, world: World, dt: float, inp: str):
+def render_system(level_map: MapType) -> ProcessorFunc:
+    """Returns a processor that renders entities on the given map"""
+
+    def _renderer(term: Terminal, world: World, dt: float, inp: str) -> None:
         color_bg = term.on_blue
         color_worm = term.yellow_reverse
         # Blank the screen
@@ -60,7 +66,8 @@ def render_system(level_map: List[List[str]]):
     return _renderer
 
 
-def input_processor(term: Terminal, world: World, dt: float, inp: str):
+def input_processor(term: Terminal, world: World, dt: float, inp: str) -> None:
+    """Processor that handles inputs for PlayerInput components"""
     player_inputs = world.get_components(PlayerInput)
     for component in player_inputs:
         movement = world.get_component(component.entity, Movement)
@@ -84,7 +91,8 @@ def input_processor(term: Terminal, world: World, dt: float, inp: str):
                 movement.direction = Vector2.ZERO
 
 
-def text_renderer(term: Terminal, world: World, dt: float, inp: str):
+def text_renderer(term: Terminal, world: World, dt: float, inp: str) -> None:
+    """Renders text components"""
     color_bg = term.on_blue
     # Blank the screen
     echo(term.move_yx(1, 1))
@@ -98,7 +106,8 @@ def text_renderer(term: Terminal, world: World, dt: float, inp: str):
             echo(term.center(text_func(text.text_string)))
 
 
-def ttl_processor(term: Terminal, world: World, dt: float, inp: str):
+def ttl_processor(term: Terminal, world: World, dt: float, inp: str) -> None:
+    """Process lifetimes for TimeToLive components"""
     ttl_components = world.get_components(TimeToLive)
     for ttl in ttl_components:
         if ttl.start_time is None:

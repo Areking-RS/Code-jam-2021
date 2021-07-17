@@ -1,23 +1,17 @@
 from blessed import Terminal
 
-from game.components import Movement, PlayerInput, Renderable, Transform
-from game.ecs.world import World
-from game.mapgeneration import mapgenerator
-from game.processors import input_processor, movement_processor, render_system
 from game.state import Intro
-from game.utils import Vector2
 
 
-def main():
+def main() -> None:
+    """Entrypoint for the game"""
     term = Terminal()
 
-    speed = 1/10
+    speed = 1 / 10
     inp = None
-
 
     level = Intro()
     level.setup(term)
-
 
     # Thread(target=game_loop).start()
     with term.hidden_cursor(), term.cbreak(), term.location():
