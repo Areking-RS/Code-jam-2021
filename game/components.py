@@ -84,3 +84,11 @@ class TimeToLive(Component):
     def expired(self) -> bool:
         """Return whether or not the component is expired"""
         return self.current_time - self.start_time >= self.expires_after
+
+
+@dataclasses.dataclass
+class FollowAI(Component):
+    """Component that tracks another transform"""
+
+    follow_transform: Optional[Transform] = None
+    ticks_since_move: int = 0

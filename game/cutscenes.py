@@ -88,16 +88,16 @@ man_in_corridor = [
     '⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣤⣶⢾⣿⣿⡇'
     '⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⣿⣋⣉⣛⣛⣛⣛⣛⣛⣛⣛⣿⣿⣷⡶⠟⠋⠀⠀⢸⣿⣿⠇'
     '⠀⠀⠀⠀⢀⣤⣶⣦⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⣿⠃⠀⠀⠀⠀⠀⢸⣿⣿⠀'
-    '⠀⠀⠀⠀⣾⣏⣿⣌⣿⡄⠀⠀⠀⢤⡀⠀⠀⢰⠆⠀⠀⠀⠀⠀⠀⠀⠀⣼⣿⡀⠀⠀⣀⣀⣀⣀⡀⠀⠀⣿⠀⠀⠀⠀⠀⠀⢸⣿⣿⠀'
-    '⠀⠀⠀⠀⣿⣏⢛⢩⣿⠁⠀⠀⠀⠈⣱⣄⣰⣋⣀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⡇⢠⣿⣿⣿⣿⣿⣷⡀⠀⣿⠀⠀⠀⠀⠀⠀⢸⣿⣿⠀'
-    '⠀⠀⠀⢀⡾⣿⣿⣟⠋⠀⠀⢰⣿⠿⠟⠛⠛⠛⠻⣿⡄⠀⠀⠀⠀⠀⠀⢻⣿⠁⠈⣿⣛⣛⣻⣿⣿⡇⠀⣿⠀⠀⠀⠀⠀⠀⢸⣿⡟⠀'
-    '⠀⠀⢰⡟⠁⣿⣿⣿⡇⠀⠀⣸⡧⠘⠄⠀⠀⠾⠛⢿⣷⠀⠀⠀⠀⠀⠀⢸⣿⠀⢸⡿⣿⡿⠁⢹⡿⠀⠀⣿⠀⠀⠀⠀⠀⠀⢸⣿⡇⠀'
-    '⠀⠀⣿⣻⣷⢿⣿⣿⣧⠀⠀⢻⡇⠐⠷⢒⡦⡚⠀⣸⣿⣷⣄⣀⡴⠆⠀⢸⣿⠀⠈⣻⡿⠶⠾⢿⡇⠀⠀⣿⠀⠀⠀⢀⣿⡆⢸⣿⣿⡇'
-    '⠀⣼⣿⣿⡇⠀⣿⣿⣿⠀⠀⠸⣷⣤⣤⣥⣤⣴⣶⣿⠏⠈⠙⠋⠀⠀⠀⢸⣿⠀⢾⣿⣶⣶⣶⣾⠇⠀⢰⣿⠀⠀⠀⠸⡿⠇⢸⣿⣿⠇'
-    '⣶⣿⣿⣿⡇⢠⡿⣿⣿⠀⠀⠀⠀⢸⣿⠉⠉⢿⡃⠀⠀⠀⠀⠀⠀⠀⠀⠈⣿⠀⠈⢹⣷⣶⣾⡇⠀⠀⢸⡿⠀⠀⠀⠀⠀⠀⢸⣿⠀⠀'
-    '⣿⣽⣿⣿⡟⢻⡟⢿⡿⠀⠀⠀⠀⠈⣿⡀⠀⠸⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⡇⠀⢸⡇⣤⢹⡆⠀⠀⢸⡇⠀⠀⠀⠀⠀⠀⢸⣿⠀⠀'
-    '⠈⠉⠉⠘⣧⠘⠛⢾⡇⠀⠀⠀⠀⠀⣿⣇⠀⠀⣿⣷⠀⠀⠀⠀⠀⠀⠀⠀⣿⡄⠀⣸⣷⢿⣏⣿⡀⠀⢸⡇⠀⠀⠀⠀⠀⠀⢸⡿⠀⠀'
-    '⠀⠀⠀⠀⠛⠛⠛⠛⠃⠀⠀⠀⠀⠀⠙⠉⠀⠀⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⣿⡇⠐⠿⠷⠟⠿⠾⠇⠀⠘⣿⠀⠀⠀⠀⠀⠀⢸⣧⠀⠀'
+    '⠀⠀⠀⠀⣾⣏⣿⣌⣿⡄⠀⠀⠀⢤⡀⠀⠀⢰⠆⠀⠀⠀⠀⠀⠀⠀⠀⣼⣿          ⠀⣿⠀⠀⠀⠀⠀⠀⢸⣿⣿⠀'
+    '⠀⠀⠀⠀⣿⣏⢛⢩⣿⠁⠀⠀⠀⠈⣱⣄⣰⣋⣀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⡇         ⠀⣿⠀⠀⠀⠀⠀⠀⢸⣿⣿⠀'
+    '⠀⠀⠀⢀⡾⣿⣿⣟⠋⠀⠀⢰⣿⠿⠟⠛⠛⠛⠻⣿⡄⠀⠀⠀⠀⠀⠀⢻⣿⠁         ⠀⣿⠀⠀⠀⠀⠀⠀⢸⣿⡟⠀'
+    '⠀⠀⢰⡟⠁⣿⣿⣿⡇⠀⠀⣸⡧⠘⠄⠀⠀⠾⠛⢿⣷⠀⠀⠀⠀⠀⠀⢸⣿⠀         ⠀⣿⠀⠀⠀⠀⠀⠀⢸⣿⡇⠀'
+    '⠀⠀⣿⣻⣷⢿⣿⣿⣧⠀⠀⢻⡇⠐⠷⢒⡦⡚⠀⣸⣿⣷⣄⣀⡴⠆⠀⢸⣿⠀          ⣿⠀⠀⠀⢀⣿⡆⢸⣿⣿⡇'
+    '⠀⣼⣿⣿⡇⠀⣿⣿⣿⠀⠀⠸⣷⣤⣤⣥⣤⣴⣶⣿⠏⠈⠙⠋⠀⠀⠀⢸⣿⠀        ⠀⢰⣿⠀⠀⠀⠸⡿⠇⢸⣿⣿⠇'
+    '⣶⣿⣿⣿⡇⢠⡿⣿⣿⠀⠀⠀⠀⢸⣿⠉⠉⢿⡃⠀⠀⠀⠀⠀⠀⠀⠀⠈⣿⠀       ⠀⠀⢸⡿⠀⠀⠀⠀⠀⠀⢸⣿⠀⠀'
+    '⣿⣽⣿⣿⡟⢻⡟⢿⡿⠀⠀⠀⠀⠈⣿⡀⠀⠸⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⡇⠀      ⠀⠀⢸⡇⠀⠀⠀⠀⠀⠀⢸⣿⠀⠀'
+    '⠈⠉⠉⠘⣧⠘⠛⢾⡇⠀⠀⠀⠀⠀⣿⣇⠀⠀⣿⣷⠀⠀⠀⠀⠀⠀⠀⠀⣿⡄⠀       ⠀⢸⡇⠀⠀⠀⠀⠀⠀⢸⡿⠀⠀'
+    '⠀⠀⠀⠀⠛⠛⠛⠛⠃⠀⠀⠀⠀⠀⠙⠉⠀⠀⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⣿⡇        ⠀⠘⣿⠀⠀⠀⠀⠀⠀⢸⣧⠀⠀'
     '⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣶⣶⣶⣶⣶⣿⣷⣶⣶⣶⡿⠿⠶⠶⠶⠶⣿⣀⠀⠀⠀⠀⠀⣼⣿⠀⠀'
     '⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠛⠿⢶⣤⣀⠀⣿⣿⠀⠀'
     '⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠻⠿⠏⠀⠀'
@@ -235,12 +235,12 @@ level_1 = [
     (couch_sitting, 5, "One day I was just sitting there watching the tele"),
     (sucked_in, 4, "When suddenly my TV sucked me into the show I was watching"),
     (meets_guide, 3, "Is that... my TeeVeaux??"),
-    (guide_points_corridor, 5, "")
+    (guide_points_corridor, 5, "Hi, Im the guide. It seems you've hit the wrong button. Welp, Just follow me")
 ]
 
 level_2 = [
-    (man_in_corridor, 5, ""),
-    (guide_close_up, 5, "")
+    (guide_close_up, 5, "We need to go all the way back to the source to free you from inside this box"),
+    (man_in_corridor, 5, "Welp, it looks like a long way to go")
 ]
 
 level_3 = [
@@ -251,25 +251,29 @@ level_3 = [
 ]
 
 level_4 = [
-    (guide_close_up, 5, "")
+    (guide_close_up, 5, "right through this path is the broadcasting station")
 ]
 
 level_5 = [
-    (reached_cliff, 5, ""),
-    (guide_close_up, 5, "")
+    (reached_cliff, 5, "Seems like quite the drop"),
+    (guide_close_up, 5, "you just need to jump off the cliff to get to the broadcasting tower")
 ]
 
 level_6 = [
-    (guide_close_up, 5, "")
+    (guide_close_up, 5, "we're almost there")
 ]
 
 level_7 = [
-    (shooting_tv_show, 5, ""),
-    (goodbye, 5, "")
+    (
+        shooting_tv_show,
+        5,
+        "Here's your stop. Now that you've reached the source, you should be able to just hop out of the camera"
+    ),
+    (goodbye, 5, "See you guide. It's been nice meeting you")
 ]
 
 end = [
-    (couch_sitting, 5, "")
+    (couch_sitting, 5, "That was definitely something")
 ]
 
 ordered_cutscenes: List[CutsceneSequence] = [

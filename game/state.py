@@ -3,14 +3,15 @@ from typing import Generator, Optional, Union
 from blessed import Terminal
 
 from game.components import (
-    Ascii, Movement, PlayerInput, Renderable, Text, TimeToLive, Transform
+    Ascii, FollowAI, Movement, PlayerInput, Renderable, Text, TimeToLive,
+    Transform
 )
 from game.cutscenes import CutsceneFrame, CutsceneSequence, ordered_cutscenes
 from game.ecs.world import World
 from game.mapgeneration import MapType, mapgenerator
 from game.processors import (
-    ascii_renderer, input_processor, movement_processor, render_system,
-    text_renderer, ttl_processor
+    ascii_renderer, enemy_movement, input_processor, movement_processor,
+    render_system, text_renderer, ttl_processor
 )
 from game.utils import Vector2, echo
 
@@ -122,13 +123,22 @@ class GameLevel(Screen):
         """
         self.world.register_processor(input_processor)
 
+        player_transform = Transform(position=Vector2(x=self.spawn_location))
         self.world.create_entity(
-            Transform(position=Vector2(x=self.spawn_location)),
+            player_transform,
             Movement(direction=Vector2.RIGHT),
             PlayerInput(),
             Renderable(w=1, h=1, character=u'^')
         )
 
+        self.world.create_entity(
+            Transform(position=Vector2(x=self.spawn_location + 2)),
+            Movement(direction=Vector2.RIGHT),
+            FollowAI(follow_transform=player_transform),
+            Renderable(w=1, h=1, character=u'O')
+        )
+
+        self.world.register_processor(enemy_movement(self.level))
         self.world.register_processor(movement_processor(self.level))
         self.world.register_processor(render_system(self.level))
 

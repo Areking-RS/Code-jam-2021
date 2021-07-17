@@ -3,7 +3,8 @@ import time
 from blessed import Terminal
 
 from game.components import (
-    Ascii, Movement, PlayerInput, Renderable, Text, TimeToLive, Transform
+    Ascii, FollowAI, Movement, PlayerInput, Renderable, Text, TimeToLive,
+    Transform
 )
 from game.ecs import ProcessorFunc
 from game.ecs.world import World
@@ -89,6 +90,45 @@ def input_processor(term: Terminal, world: World, dt: float, inp: str) -> None:
                 renderable.character = u'>'
             else:
                 movement.direction = Vector2.ZERO
+
+
+def enemy_movement(current_map: MapType) -> ProcessorFunc:
+    """Returns a processor that calculates movement paths for enemies on the given map"""
+
+    def enemy_movement_processor(term: Terminal, world: World, dt: float, inp: str) -> None:
+        AIs = world.get_components(FollowAI)
+        for component in AIs:
+            movement = world.get_component(component.entity, Movement)
+            if component.ticks_since_move < 3:
+                component.ticks_since_move += 1
+                movement.direction = Vector2.ZERO
+                continue
+            else:
+                component.ticks_since_move = 0
+
+            renderable = world.get_component(component.entity, Renderable)
+            player_location = component.follow_transform
+            transform = world.get_component(component.entity, Transform)
+            follow_path = transform.position - player_location.position
+            # follow_path *=.5
+            '''f follow_path.mag()>=2:
+                transform.position=transform.position+follow_path'''
+
+            # TODO: Shouldn't apply scalars here, instead should correctly apply them in the movement processor
+            if (follow_path).y > 0:
+                movement.direction = Vector2.UP
+                renderable.character = u'O'
+            elif (follow_path).y < 0:
+                movement.direction = Vector2.DOWN
+                renderable.character = u'O'
+            if (follow_path).x > 0:
+                movement.direction += Vector2.LEFT
+                renderable.character = u'O'
+            elif (follow_path).x < 0:
+                movement.direction += Vector2.RIGHT
+                renderable.character = u'O'
+
+    return enemy_movement_processor
 
 
 def text_renderer(term: Terminal, world: World, dt: float, inp: str) -> None:
