@@ -3,16 +3,15 @@ from blessed import Terminal
 from game.state import Intro
 
 
-def main():
+def main() -> None:
+    """Entrypoint for the game"""
     term = Terminal()
 
-    speed = 1/10
+    speed = 1 / 10
     inp = None
-
 
     level = Intro()
     level.setup(term)
-
 
     # Thread(target=game_loop).start()
     with term.hidden_cursor(), term.cbreak(), term.location():
