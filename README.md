@@ -1,4 +1,4 @@
-# Welcome to Dedicated Dugongs![team banner](https://drive.google.com/file/d/1ErkoRrYxaTR9GljiV7CwpS4SoDYG9TiV/view?usp=sharing)
+# Welcome to Dedicated Dugongs![team banner](https://i.imgur.com/uw5nfyh.png)
 
 Hi welcome to team Dedicated Dugongs readme file. In this file we have documented how to install and run our project with the least hasle possible.
 
