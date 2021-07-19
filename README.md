@@ -9,6 +9,7 @@ Hi welcome to team Dedicated Dugongs readme file. In this file we have documente
 
 You can easily get the source code for the project by simply clicking the download zip button,
 ![github download zip](https://i.imgur.com/a38ATMi.png)
+
 or you can directly clone the project on to you computer by using the following command
 `$ git clone https://github.com/Areking-RS/Code-jam-2021.git`
 ## Using poetry to install the dependencies 
