@@ -28,7 +28,7 @@ just run the given command
 
 After you have done all that just run the given command from project root to run the project
 `/Code-jam-2021-main $ PYTHONPATH=$(pwd) python(version=3.9) game/main.py`
-![poetry run project ](https://drive.google.com/file/d/1B1wuGrusodGPEtTKusWW8sMs_UfD1snb/view?usp=sharing)
+![poetry run project ](https://i.imgur.com/fX3NIKz.mp4)
 
 
 
