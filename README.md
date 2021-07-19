@@ -11,7 +11,9 @@ You can easily get the source code for the project by simply clicking the downlo
 ![github download zip](https://i.imgur.com/a38ATMi.png)
 
 or you can directly clone the project on to you computer by using the following command
+
 `$ git clone https://github.com/Areking-RS/Code-jam-2021.git`
+
 ## Using poetry to install the dependencies 
 
 If you don't have poetry installed already on your system you will have to install it. For more details on how to install poetry please refer to poetry's documentation: https://python-poetry.org/docs/ .
