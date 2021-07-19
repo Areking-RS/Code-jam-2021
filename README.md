@@ -21,6 +21,7 @@ If you don't have poetry installed already on your system you will have to insta
 ### Installing dependencies
 
 You can install all the project dependencies by running just one command in the project root
+
 `/Code-jam-2021-main $ poetry install`
 ![poetry install](https://i.imgur.com/CglwroY.gif)
 
@@ -28,11 +29,13 @@ You can install all the project dependencies by running just one command in the 
 
 Due to some unknown reason you have to install blessed on your machine otherwise the project wont run
 just run the given command
+
 `$ python(version=3.9) pip install blessed` 
 
 ### Running the project
 
 After you have done all that just run the given command from project root to run the project
+
 `/Code-jam-2021-main $ PYTHONPATH=$(pwd) python(version=3.9) game/main.py`
 ![poetry run project ](https://i.imgur.com/fX3NIKz.gif)
 
